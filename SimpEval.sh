@@ -27,7 +27,7 @@ if [ ! -d "src/code/${1}" ]; then
     echo "题目文件夹不存在！！！"
 fi
 
-#----------STARTS----------#
+#----------STARTS-HERE----------#
 echo "开始评测：${1}"
 score=0
 
@@ -63,7 +63,8 @@ fi
 for i in $2; do
     cp data/${1}/${1}${i}.in ${1}.in                # Get input file ready
     timeout 1 src/code/${1}.autobuilt               # Run the program
-    diff -Z -B data/${1}/${1}${i}.${end} ${1}.out > .__SETemp.diff 2>/dev/null  # Check the result
+    diff -Z -B data/${1}/${1}${i}.${end} ${1}.out > .__SETemp.diff 2>/dev/null
+                                                    # Check the result
     if [ ! -f "${1}.out"  ]; then                   # No output file
         echo "第 #${i} 个测试点错误(无输出)"
     elif [ "`cat ${1}.out`" = "" ]; then            # Output file empty
@@ -84,4 +85,5 @@ done
 rm -rf src/code/${1}.autobuilt
 echo "评测结束：${1}"
 echo "分数：${score}分"
-exit ${score}
+exit ${score}                                       # Pass the score in the form of return value
+
